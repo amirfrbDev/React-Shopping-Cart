@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useProductDetails } from '../context/ProductsProvider';
 import Loader from '../components/Loader';
 import { SiOpenproject } from 'react-icons/si';
@@ -9,8 +9,20 @@ import styles from "../styles/DetailsPage.module.css"
 
 function DetailsPage() {
 
-  const { id } = useParams()
+  const { id } = useParams();
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isNaN(id) || id > 20 || id < 1) {
+      console.log("true");
+      navigate(id);
+      return
+    } else {
+      console.log("false");
+    }
+
+  }, [])
   const product = useProductDetails(id);
 
   const { image, title, description, category, price } = product
@@ -33,7 +45,7 @@ function DetailsPage() {
             ${price}
           </span>
           <Link to="/products">
-          <FaArrowLeft />
+            <FaArrowLeft />
             <span>Back To Shop</span>
           </Link>
         </div>

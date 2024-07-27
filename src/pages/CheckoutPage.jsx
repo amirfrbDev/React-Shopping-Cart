@@ -1,11 +1,11 @@
 import CheckoutCard from "../components/CheckoutCard";
 import CheckoutSidebar from "../components/CheckoutSidebar";
 import { useCart } from "../context/CartProvider"
+import emptyCart from "../assets/empty-cart.png"
 
 import styles from "../styles/CheckoutPage.module.css"
 
 function CheckoutPage() {
-
   const [state, dispatch] = useCart();
 
   const clickHandler = (type, payload) => {
@@ -13,8 +13,8 @@ function CheckoutPage() {
   }
 
   if (!state.itemsCounter) {
-    return <div className={styles.container}>
-      <p>Empty</p>
+    return <div className={styles.emptyContainer}>
+      <img src={emptyCart} alt="Cart is empty!" />
     </div>
   }
 

@@ -6,6 +6,17 @@
     min-height: 1000px;
 }
 
+.emptyContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emptyContainer img {
+    width: 400px;
+    height: 400px;
+}
+
 .products {
     width: 100%;
 }

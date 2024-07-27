@@ -6,7 +6,7 @@ import styles from "../styles/CheckoutSidebar.module.css"
 
 function CheckoutSidebar({ state, clickHandler }) {
     return (
-        <div>
+        <div className={styles.sidebar}>
             <div>
                 <TbChecklist />
                 <p>Total:</p>
@@ -15,7 +15,7 @@ function CheckoutSidebar({ state, clickHandler }) {
             <div>
                 <FaHashtag />
                 <p>Quantity:</p>
-                <span>{state.quantity}</span>
+                <span>{state.itemsCounter}</span>
             </div>
             <div>
                 <BsPatchCheck />
