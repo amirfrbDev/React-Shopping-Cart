@@ -4,8 +4,8 @@ import ProductsPage from './pages/ProductsPage'
 import DetailsPage from './pages/DetailsPage'
 import CheckoutPage from './pages/CheckoutPage'
 import NotFoundPage from './pages/404'
-import ProductsProvider from './context/ProductsProvider'
-import CartProvider from './context/CartProvider'
+// import ProductsProvider from './context/ProductsProvider'
+// import CartProvider from './context/CartProvider'
 import Layout from './Layouts/Layout'
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
 
   return (
     <>
-      <CartProvider>
-        <ProductsProvider>
+      {/* <CartProvider> */}
+        {/* <ProductsProvider> */}
           <Layout>
             <Routes>
               <Route index element={<Navigate to="/products" />} />
@@ -24,8 +24,8 @@ function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Layout>
-        </ProductsProvider>
-      </CartProvider>
+        {/* </ProductsProvider> */}
+      {/* </CartProvider> */}
     </>
   )
 }

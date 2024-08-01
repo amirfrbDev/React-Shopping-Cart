@@ -1,6 +1,8 @@
 import { RotatingLines  } from "react-loader-spinner"
 
 import styles from "../styles/Loader.module.css"
+import { memo } from "react"
+import { TbBackslash } from "react-icons/tb"
 
 function Loader() {
   return (
@@ -10,4 +12,4 @@ function Loader() {
   )
 }
 
-export default Loader
+export default memo(Loader)

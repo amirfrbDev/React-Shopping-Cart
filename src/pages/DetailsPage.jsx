@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useProductDetails } from '../context/ProductsProvider';
+
+import { fetchProducts } from '../features/productsSlice';
+
 import Loader from '../components/Loader';
+
 import { SiOpenproject } from 'react-icons/si';
 import { IoMdPricetag } from 'react-icons/io';
 import { FaArrowLeft } from 'react-icons/fa';
+
 import styles from "../styles/DetailsPage.module.css"
 
 function DetailsPage() {
@@ -15,42 +21,52 @@ function DetailsPage() {
 
   useEffect(() => {
     if (isNaN(id) || id > 20 || id < 1) {
-      console.log("true");
       navigate(id);
       return
-    } else {
-      console.log("false");
     }
-
   }, [])
-  const product = useProductDetails(id);
 
-  const { image, title, description, category, price } = product
+  const products = useSelector(state => state.products)
 
-  if (!product) return <Loader />
+  const productDetails = products.products.find(p => p.id === +id);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
+
+  if (!productDetails) return <Loader />
 
   return (
-    <div className={styles.container}>
-      <img src={image} alt={title} />
-      <div className={styles.information}>
-        <h3 className={styles.title}>{title}</h3>
-        <p className={styles.description}>{description}</p>
-        <p className={styles.category}>
-          <SiOpenproject />
-          {category}
-        </p>
-        <div>
-          <span className={styles.price}>
-            <IoMdPricetag />
-            ${price}
-          </span>
-          <Link to="/products">
-            <FaArrowLeft />
-            <span>Back To Shop</span>
-          </Link>
-        </div>
-      </div>
-    </div>
+    <>
+      {
+        products.loading ? <Loader /> :
+          (
+            <div className={styles.container}>
+              <img src={productDetails.image} alt={productDetails.title} />
+              <div className={styles.information}>
+                <h3 className={styles.title}>{productDetails.title}</h3>
+                <p className={styles.description}>{productDetails.description}</p>
+                <p className={styles.category}>
+                  <SiOpenproject />
+                  {productDetails.category}
+                </p>
+                <div>
+                  <span className={styles.price}>
+                    <IoMdPricetag />
+                    ${productDetails.price}
+                  </span>
+                  <Link to="/products">
+                    <FaArrowLeft />
+                    <span>Back To Shop</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )
+      }
+    </>
   )
 }
 
